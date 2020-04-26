@@ -47,32 +47,51 @@ class Register extends CI_Controller
     <p>Once you click this link your email will be verified and you can login into system.</p>
     <p>Thanks,</p>
     ";
-//				$config = array(
-//					'protocol'  => 'smtp',
-//					'smtp_host' => 'smtpout.secureserver.net',
-//					'smtp_port' => 80,
-//					'smtp_user'  => 'xxxxxxx',
-//					'smtp_pass'  => 'xxxxxxx',
-//					'mailtype'  => 'html',
-//					'charset'    => 'iso-8859-1',
-//					'wordwrap'   => TRUE
-//				);
-//				$this->load->library('email', $config);
-//				$this->email->set_newline("\r\n");
-//				$this->email->from('info@webslesson.info');
-//				$this->email->to($this->input->post('user_email'));
-//				$this->email->subject($subject);
-//				$this->email->message($message);
-//				if($this->email->send())
-//				{
-//					$this->session->set_flashdata('message', 'Check in your email for email verification mail');
-//					redirect('register');
-//				}
+				$config = array(
+					'protocol'  => 'smtp',
+					'smtp_host' => 'smtp.gmail.com',
+					'smtp_port' => 465,
+					'smtp_crypto' => 'ssl',
+					'smtp_user'  => 'ngolenhatminh@gmail.com',
+					'smtp_pass'  => 'nhat minh 158',
+					'mailtype'  => 'html',
+					'charset'    => 'iso-8859-1',
+					'wordwrap'   => TRUE
+				);
+				$this->load->library('email', $config);
+				$this->email->set_newline("\r\n");
+				$this->email->from('car_auction_company');
+				$this->email->to($this->input->post('user_email'));
+				$this->email->subject($subject);
+				$this->email->message($message);
+				if($this->email->send())
+				{
+					$this->session->set_flashdata('message', 'Check in your email for email verification mail');
+					redirect('register');
+				}
+				echo $this->email->print_debugger();
 			}
 		}
 		else
 		{
 			$this->index();
+		}
+	}
+
+	function verify_email()
+	{
+		if($this->uri->segment(3))
+		{
+			$verification_key = $this->uri->segment(3);
+			if($this->register_model->verify_email($verification_key))
+			{
+				$data['message'] = '<h1 align="center">Your Email has been successfully verified, now you can login from <a href="'.base_url().'login">here</a></h1>';
+			}
+			else
+			{
+				$data['message'] = '<h1 align="center">Invalid Link</h1>';
+			}
+			$this->load->view('email_verification', $data);
 		}
 	}
 }

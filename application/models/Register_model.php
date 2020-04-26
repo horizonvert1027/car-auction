@@ -11,14 +11,14 @@ class Register_model extends CI_Model
 	{
 		$this->db->where('verification_key', $key);
 		$this->db->where('is_email_verified', 'no');
-		$query = $this->db->get('codeigniter_register');
+		$query = $this->db->get('user');
 		if($query->num_rows() > 0)
 		{
 			$data = array(
 				'is_email_verified'  => 'yes'
 			);
 			$this->db->where('verification_key', $key);
-			$this->db->update('codeigniter_register', $data);
+			$this->db->update('user', $data);
 			return true;
 		}
 		else
