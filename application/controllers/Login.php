@@ -43,6 +43,67 @@ class Login extends CI_Controller {
 		}
 	}
 
+	function reset_password()
+	{
+		$this->load->view('reset_password');
+	}
+
+	function reset_password_validation()
+	{
+		$this->form_validation->set_rules('user_email', 'Email Address', 'required|trim|valid_email');
+		if($this->form_validation->run())
+		{
+			$result = $this->login_model->can_reset_password($this->input->post('user_email'));
+			if($result)
+			{
+				$reset_token = md5(rand());
+				$data = array(
+					'reset_token'  => $reset_token
+				);
+				$result->update($data);
+				echo $result;
+				$subject = "Please verify email for login";
+				$message = "
+<p>Hi ".$this->input->post('user_name')."</p>
+<p>This is email verification mail from Codeigniter Login Register system. For complete registration process and login into system. First you want to verify you email by click this <a href='".base_url()."register/verify_email/".$verification_key."'>link</a>.</p>
+<p>Once you click this link your email will be verified and you can login into system.</p>
+<p>Thanks,</p>
+";
+				$config = array(
+					'protocol'  => 'smtp',
+					'smtp_host' => 'smtp.gmail.com',
+					'smtp_port' => 465,
+					'smtp_crypto' => 'ssl',
+					'smtp_user'  => 'ngolenhatminh@gmail.com',
+					'smtp_pass'  => 'nhat minh 158',
+					'mailtype'  => 'html',
+					'charset'    => 'iso-8859-1',
+					'wordwrap'   => TRUE
+				);
+				$this->load->library('email', $config);
+				$this->email->set_newline("\r\n");
+				$this->email->from('car_auction_company');
+				$this->email->to($this->input->post('user_email'));
+				$this->email->subject($subject);
+				$this->email->message($message);
+				if($this->email->send())
+				{
+					$this->session->set_flashdata('message', 'Check in your email for email verification mail');
+					redirect('register');
+				}
+				echo $this->email->print_debugger();
+			}
+			else
+			{
+				$this->session->set_flashdata('message',$result);
+				redirect('login/reset_password');
+			}
+		}
+		else
+		{
+			$this->reset_password();
+		}
+	}
+
 }
 
-?>
