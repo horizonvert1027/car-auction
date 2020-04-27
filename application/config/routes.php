@@ -63,4 +63,5 @@ $route['home'] = 'home';
 
 $route['user'] = 'user';
 $route['user/profile'] = 'user/profile';
+$route['user/profile/post']['post'] = 'user/update_profile';
 

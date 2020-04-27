@@ -18,6 +18,18 @@ class User extends CI_Controller {
 		$this->load->view('user/profile', $data);
 	}
 
+	public function upload_profile()
+	{
+		$config['upload_path']   = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']      = 1024;
 
+		$this->load->library('upload', $config);
+		$this->upload->do_upload('file');
+
+
+		print_r('Image Uploaded Successfully.');
+		exit;
+	}
 }
 
