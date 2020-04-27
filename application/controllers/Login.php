@@ -29,7 +29,7 @@ class Login extends CI_Controller {
 			$result = $this->login_model->can_login($this->input->post('user_email'), $this->input->post('user_password'));
 			if($result == '')
 			{
-				redirect('home');
+				redirect('dashboard');
 			}
 			else
 			{
@@ -129,5 +129,12 @@ class Login extends CI_Controller {
 		$this->login_model->update($this->input->post('user_email'), $data);
 		$this->load->view('login');
 	}
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('register/login');
+	}
+
 }
+
 

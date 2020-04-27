@@ -8,12 +8,12 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
-//		$this->load->model('product_model');
+
 	}
 
 	function index()
 	{
-		$this->load->view('home');
+		$this->load->view('dashboard');
 	}
 }
 
