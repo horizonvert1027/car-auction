@@ -54,31 +54,30 @@ class Login extends CI_Controller {
 		if($this->form_validation->run())
 		{
 			$result = $this->login_model->can_reset_password($this->input->post('user_email'));
-			if($result)
+			if($result === '')
 			{
 				$reset_token = md5(rand());
 				$data = array(
 					'reset_token'  => $reset_token
 				);
-				$result->update($data);
-				echo $result;
+				$this->login_model->update($this->input->post('user_email'), $data);
 				$subject = "Please verify email for login";
 				$message = "
-<p>Hi ".$this->input->post('user_name')."</p>
-<p>This is email verification mail from Codeigniter Login Register system. For complete registration process and login into system. First you want to verify you email by click this <a href='".base_url()."register/verify_email/".$verification_key."'>link</a>.</p>
-<p>Once you click this link your email will be verified and you can login into system.</p>
+<p>Hi " . $this->input->post('user_name') . "</p>
+<p>This is email reset password from car auction system. For reset your password, please click this  <a href='" . base_url() . "login/set_password/" . $reset_token . "'>link</a>.</p>
+<p>Once you click this link, you are able to reset your password</p>
 <p>Thanks,</p>
 ";
 				$config = array(
-					'protocol'  => 'smtp',
+					'protocol' => 'smtp',
 					'smtp_host' => 'smtp.gmail.com',
 					'smtp_port' => 465,
 					'smtp_crypto' => 'ssl',
-					'smtp_user'  => 'ngolenhatminh@gmail.com',
-					'smtp_pass'  => 'nhat minh 158',
-					'mailtype'  => 'html',
-					'charset'    => 'iso-8859-1',
-					'wordwrap'   => TRUE
+					'smtp_user' => 'wisuq2020@gmail.com',
+					'smtp_pass' => 'UQgrad2020',
+					'mailtype' => 'html',
+					'charset' => 'iso-8859-1',
+					'wordwrap' => TRUE
 				);
 				$this->load->library('email', $config);
 				$this->email->set_newline("\r\n");
@@ -86,10 +85,11 @@ class Login extends CI_Controller {
 				$this->email->to($this->input->post('user_email'));
 				$this->email->subject($subject);
 				$this->email->message($message);
-				if($this->email->send())
-				{
-					$this->session->set_flashdata('message', 'Check in your email for email verification mail');
-					redirect('register');
+				if ($this->email->send()) {
+					$this->session->set_flashdata('message', 'A link to reset your password has been setn to '
+						. $this->input->post('user_email')
+						.'. If you do not see it, be sure to check your span folders too');
+					redirect('login/reset_password');
 				}
 				echo $this->email->print_debugger();
 			}
@@ -105,5 +105,29 @@ class Login extends CI_Controller {
 		}
 	}
 
+	function set_password()
+	{
+		if($this->uri->segment(3))
+		{
+			$reset_token = $this->uri->segment(3);
+			$data['email'] = $this->login_model->verify_email($reset_token);
+			if($data['email'])
+			{
+				$data['message'] = '<h1 align="center">Your password has been successfully reset, now you can set new password';
+			}
+			else
+			{
+				$data['message'] = '<h1 align="center">Invalid Link</h1>';
+			}
+			$this->load->view('set_password', $data);
+		}
+	}
+
+	function update_password()
+	{
+		$data['password'] = $this->encryption->encrypt($this->input->post('user_password'));
+		$this->login_model->update($this->input->post('user_email'), $data);
+		$this->load->view('login');
+	}
 }
 

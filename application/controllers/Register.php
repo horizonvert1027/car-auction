@@ -52,8 +52,8 @@ class Register extends CI_Controller
 					'smtp_host' => 'smtp.gmail.com',
 					'smtp_port' => 465,
 					'smtp_crypto' => 'ssl',
-					'smtp_user'  => 'your_gmail',
-					'smtp_pass'  => 'your_password',
+					'smtp_user'  => 'wisuq2020@gmail.com',
+					'smtp_pass'  => 'UQgrad2020',
 					'mailtype'  => 'html',
 					'charset'    => 'iso-8859-1',
 					'wordwrap'   => TRUE

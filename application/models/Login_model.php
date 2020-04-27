@@ -1,6 +1,13 @@
 <?php
 class Login_model extends CI_Model
 {
+	function update($user_email, $data)
+	{
+		$this->db->where('email', $user_email);
+		$this->db->update('user', $data);
+	}
+
+
 	function can_login($email, $password)
 	{
 		$this->db->where('email', $email);
@@ -39,7 +46,21 @@ class Login_model extends CI_Model
 		$query = $this->db->get('user');
 		if($query->num_rows() > 0)
 		{
-			return $query->row();
+			return '';
+		}
+		else
+		{
+			return "The email does not exist";
+		}
+	}
+
+	function verify_email($key)
+	{
+		$this->db->where('reset_token', $key);
+		$query = $this->db->get('user');
+		if($query->num_rows() > 0)
+		{
+			return $query->row()->email;
 		}
 		else
 		{

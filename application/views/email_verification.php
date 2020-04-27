@@ -11,11 +11,7 @@
 	<h3 align="center">Complete Login Register system in Codeigniter</h3>
 	<br />
 
-	<?php
-
-	echo $message;
-
-	?>
+	<?php echo $message; ?>
 
 </div>
 </body>
