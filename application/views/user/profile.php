@@ -59,24 +59,33 @@
 								<div class="col-12 col-sm-auto mb-3 ">
 									<div class="mx-auto" style="width: 250px;">
 										<div class="d-flex justify-content-center align-items-center rounded" style="height: 250px; background-color: rgb(233, 236, 239);">
-											<img src="" alt="user_image">
+											<img src='<?= base_url() ?>assets/images/users/<?= $user->image ?>' alt="user_image">
 										</div>
 									</div>
 								</div>
 								<div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+									<?php echo form_open_multipart('user/upload');?>
 									<div class="text-center text-sm-left mb-2 mb-sm-0">
 										<h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo base_url()."" ?>Name</h4>
 										<div class="text-muted"><small><?php echo base_url()."" ?></small>Email</div>
 										<div class="text-muted"><small><?php echo base_url()."" ?></small>My Description</div>
 										<div class="text-muted"><small><?php echo base_url()."" ?></small>phone</div>
 										<div class="text-muted"><small><?php echo base_url()."" ?></small>location</div>
+										<div class="row">
+											<div class="col">
+												<div class="form-group">
+													<input class="form-control" type='file' name='userfile' size='20' />
+												</div>
+											</div>
+										</div>
 										<div class="mt-2 pt-4">
-											<button class="btn btn-primary" type="button">
+											<button class="btn btn-primary" type="submit">
 												<i class="fa fa-fw fa-camera"></i>
 												<span>Upload Photo</span>
 											</button>
 										</div>
 									</div>
+									</form>
 
 								</div>
 							</div>
@@ -85,14 +94,14 @@
 							</ul>
 							<div class="tab-content pt-3">
 								<div class="tab-pane active">
-									<form class="form" novalidate="">
+									<form method="post" action="<?php echo base_url(); ?>user/update" novalidate="">
 										<div class="row">
 											<div class="col">
 												<div class="row">
 													<div class="col">
 														<div class="form-group">
 															<label>Username</label>
-															<input class="form-control" type="text" name="username" placeholder="Important <?php echo base_url()."" ?>">
+															<input class="form-control" type="text" name="username" value="<?php echo $user->username ?>">
 														</div>
 													</div>
 												</div>
@@ -100,33 +109,9 @@
 													<div class="col">
 														<div class="form-group">
 															<label>Email</label>
-															<input class="form-control" type="text" placeholder="Important<?php echo base_url()."" ?>">
+															<input class="form-control" type="text" name="email" value="<?php echo $user->email ?>">
 														</div>
 													</div>
-												</div>
-												<div class="row">
-													<div class="col">
-														<div class="form-group">
-															<label>About</label>
-															<textarea class="form-control" rows="1" placeholder="My Bio"></textarea>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col">
-												<div class="form-group">
-													<label>Phone</label>
-													<input class="form-control" type="text" placeholder="<?php echo base_url()."" ?>">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col">
-												<div class="form-group">
-													<label>Location</label>
-													<input class="form-control" type="text" placeholder="<?php echo base_url()."" ?>">
 												</div>
 											</div>
 										</div>
