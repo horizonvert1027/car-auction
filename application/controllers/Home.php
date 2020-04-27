@@ -13,7 +13,7 @@ class Home extends CI_Controller {
 
 	function index()
 	{
-		$this->load->view('password');
+		$this->load->view('sellproduct');
 	}
 }
 
