@@ -61,6 +61,7 @@ $route['login/set_password'] = 'login/set_password';
 
 $route['dashboard'] = 'product';
 $route['product/sell'] = 'product/sell';
+$route['product/sell_post']['post'] = 'product/sell_post';
 $route['product/buy'] = 'product/buy';
 
 $route['user'] = 'user';

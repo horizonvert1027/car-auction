@@ -27,7 +27,7 @@
 					<a class="nav-link" href="#">Buy Product</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url()."" ?>">Sell Product</a>
+					<a class="nav-link" href="<?php echo base_url()."product/sell" ?>">Sell Product</a>
 				</li>
 				<li class="nav-item">
 					<div class="btn-group">
@@ -64,7 +64,7 @@
 		<?php foreach($products as $product) { ?>
 			<div class="col-lg-3 col-md-6 mb-4">
 				<div class="card h-100">
-					<img class="card-img-top" src="http://placehold.it/500x325" alt="">
+					<img class="card-img-top" src='<?= base_url() ?>assets/images/products/<?= $product['image'] ?>' alt="product_image">
 					<div class="card-body">
 						<h4 class="card-title"><?php echo $product['name']; ?></h4>
 						<p class="card-text"><?php echo $product['description']; ?></p>
