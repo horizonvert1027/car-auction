@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 	<div class="container">
-		<a class="navbar-brand" href="#">Start Bootstrap</a>
+		<a class="navbar-brand" href="<?php echo base_url()."dashboard" ?>">Start Bootstrap</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -26,7 +26,7 @@
 					<a class="nav-link" href="#">Buy Product</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url()." "?>">Sell Product</a>
+					<a class="nav-link" href="<?php echo base_url()."product/sell" ?>">Sell Product</a>
 				</li>
 				<li class="nav-item">
 					<div class="btn-group">
@@ -34,12 +34,12 @@
 							My Account
 						</button>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="<?php echo base_url()." "?>">Profile</a>
+							<a class="dropdown-item" href="<?php echo base_url(); ?>user/profile">Profile</a>
 							<a class="dropdown-item" href="<?php echo base_url()." "?>">Change Password</a>
 							<a class="dropdown-item" href="<?php echo base_url()." "?>">Order</a>
 							<div class="dropdown-divider"></div>
 
-							<a class="dropdown-item" href="<?php echo base_url()." "?>">Logout</a>
+							<a class="dropdown-item" href="<?php echo base_url(); ?>user/logout">Logout</a>
 						</div>
 					</div>
 				</li>

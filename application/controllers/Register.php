@@ -14,7 +14,6 @@ class Register extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
 		$this->load->model('register_model');
-		$this->load->helper('url');
 	}
 
 	function index()

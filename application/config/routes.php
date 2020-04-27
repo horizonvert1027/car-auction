@@ -67,4 +67,5 @@ $route['product/buy'] = 'product/buy';
 $route['user'] = 'user';
 $route['user/profile'] = 'user/profile';
 $route['user/profile/post']['post'] = 'user/update_profile';
+$route['user/logout'] = 'user/logout';
 

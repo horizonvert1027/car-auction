@@ -6,12 +6,14 @@ class User extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		if(!$this->session->userdata('id'))
+		{
+			redirect('login');
+		}
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
 		$this->load->model('user_model');
-
 		$this->load->library('upload');
-		$this->load->helper(array('form', 'url'));
 	}
 
 	function profile()
@@ -49,6 +51,13 @@ class User extends CI_Controller {
 		);
 		$this->user_model->update($this->session->userdata('id'), $data);
 		redirect('user/profile');
+	}
+
+	public function logout()
+	{
+		$this->session->unset_userdata('id');
+		$this->session->sess_destroy();
+		redirect('login');
 	}
 }
 

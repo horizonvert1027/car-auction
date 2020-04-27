@@ -8,7 +8,7 @@ class Login extends CI_Controller {
 		parent::__construct();
 		if($this->session->userdata('id'))
 		{
-			redirect('home');
+			redirect('dashboard');
 		}
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
@@ -128,11 +128,6 @@ class Login extends CI_Controller {
 		$data['password'] = $this->encryption->encrypt($this->input->post('user_password'));
 		$this->login_model->update($this->input->post('user_email'), $data);
 		$this->load->view('login');
-	}
-	public function logout()
-	{
-		$this->session->sess_destroy();
-		redirect('register/login');
 	}
 
 }
