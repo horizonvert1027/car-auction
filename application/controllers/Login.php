@@ -8,7 +8,7 @@ class Login extends CI_Controller {
 		parent::__construct();
 		if($this->session->userdata('id'))
 		{
-			redirect('private_area');
+			redirect('home');
 		}
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
@@ -29,7 +29,7 @@ class Login extends CI_Controller {
 			$result = $this->login_model->can_login($this->input->post('user_email'), $this->input->post('user_password'));
 			if($result == '')
 			{
-				redirect('private_area');
+				redirect('home');
 			}
 			else
 			{

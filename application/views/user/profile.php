@@ -8,8 +8,42 @@
 <body>
 <div class="container">
 	<br />
-	<h3 align="center">Complete User Registration and Login System in Codeigniter</h3>
+	<h3 align="center">Profile</h3>
 	<br />
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Logo</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Buy Product</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Sell Product</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Search</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						My Account
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Profile</a>
+						<a class="dropdown-item" href="#">Change password</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Logout</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<?php
@@ -24,22 +58,17 @@
 			?>
 			<form method="post" action="<?php echo base_url(); ?>register/validation">
 				<div class="form-group">
-					<label>Enter Your Name</label>
-					<input type="text" name="user_name" class="form-control" value="<?php echo set_value('user_name'); ?>" />
+					<label>Username</label>
+					<input type="text" name="user_name" class="form-control" value="<?php echo $user->username; ?>" />
 					<span class="text-danger"><?php echo form_error('user_name'); ?></span>
 				</div>
 				<div class="form-group">
 					<label>Enter Your Valid Email Address</label>
-					<input type="text" name="user_email" class="form-control" value="<?php echo set_value('user_email'); ?>" />
+					<input type="text" name="user_email" class="form-control" value="<?php echo $user->email; ?>" />
 					<span class="text-danger"><?php echo form_error('user_email'); ?></span>
 				</div>
 				<div class="form-group">
-					<label>Enter Password</label>
-					<input type="password" name="user_password" class="form-control" value="<?php echo set_value('user_password'); ?>" />
-					<span class="text-danger"><?php echo form_error('user_password'); ?></span>
-				</div>
-				<div class="form-group">
-					<input type="submit" name="register" value="Register" class="btn btn-info" />
+					<input type="submit" name="update" value="Update" class="btn btn-info" />
 				</div>
 			</form>
 		</div>

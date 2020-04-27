@@ -9,7 +9,7 @@ class Register extends CI_Controller
 	{
 		parent::__construct();
 		if ($this->session->userdata('id')) {
-			redirect('private_area');
+			redirect('home');
 		}
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
