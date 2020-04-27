@@ -59,7 +59,9 @@ $route['login'] = 'login';
 $route['login/reset_password'] = 'login/reset_password';
 $route['login/set_password'] = 'login/set_password';
 
-$route['home'] = 'home';
+$route['dashboard'] = 'product';
+$route['product/sell'] = 'product/sell';
+$route['product/buy'] = 'product/buy';
 
 $route['user'] = 'user';
 $route['user/profile'] = 'user/profile';
