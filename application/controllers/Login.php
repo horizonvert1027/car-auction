@@ -22,11 +22,11 @@ class Login extends CI_Controller {
 
 	function validation()
 	{
-		$this->form_validation->set_rules('user_email', 'Email Address', 'required|trim|valid_email');
-		$this->form_validation->set_rules('user_password', 'Password', 'required');
+		$this->form_validation->set_rules('email', 'Email Address', 'required|trim|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'required');
 		if($this->form_validation->run())
 		{
-			$result = $this->login_model->can_login($this->input->post('user_email'), $this->input->post('user_password'));
+			$result = $this->login_model->can_login($this->input->post('email'), $this->input->post('password'));
 			if($result == '')
 			{
 				redirect('dashboard');
@@ -50,23 +50,22 @@ class Login extends CI_Controller {
 
 	function reset_password_validation()
 	{
-		$this->form_validation->set_rules('user_email', 'Email Address', 'required|trim|valid_email');
+		$this->form_validation->set_rules('email', 'Email Address', 'required|trim|valid_email');
 		if($this->form_validation->run())
 		{
-			$result = $this->login_model->can_reset_password($this->input->post('user_email'));
+			$result = $this->login_model->can_reset_password($this->input->post('email'));
 			if($result === '')
 			{
 				$reset_token = md5(rand());
 				$data = array(
 					'reset_token'  => $reset_token
 				);
-				$this->login_model->update($this->input->post('user_email'), $data);
-				$subject = "Please verify email for login";
+				$this->login_model->update($this->input->post('email'), $data);
+				$subject = "Verify email for login";
 				$message = "
-<p>Hi " . $this->input->post('user_name') . "</p>
-<p>This is email reset password from car auction system. For reset your password, please click this  <a href='" . base_url() . "login/set_password/" . $reset_token . "'>link</a>.</p>
-<p>Once you click this link, you are able to reset your password</p>
-<p>Thanks,</p>
+<p>Hi " . $this->input->post('name') . "</p>
+<p>To reset your password, click this  <a href='" . base_url() . "login/set_password/" . $reset_token . "'>link</a>.</p>
+
 ";
 				$config = array(
 					'protocol' => 'smtp',
@@ -82,13 +81,13 @@ class Login extends CI_Controller {
 				$this->load->library('email', $config);
 				$this->email->set_newline("\r\n");
 				$this->email->from('car_auction_company');
-				$this->email->to($this->input->post('user_email'));
+				$this->email->to($this->input->post('email'));
 				$this->email->subject($subject);
 				$this->email->message($message);
 				if ($this->email->send()) {
-					$this->session->set_flashdata('message', 'A link to reset your password has been setn to '
-						. $this->input->post('user_email')
-						.'. If you do not see it, be sure to check your span folders too');
+					$this->session->set_flashdata('message', 'Reset your password '
+						. $this->input->post('email')
+						.'. Check your span folders as well');
 					redirect('login/reset_password');
 				}
 				echo $this->email->print_debugger();
@@ -125,8 +124,8 @@ class Login extends CI_Controller {
 
 	function update_password()
 	{
-		$data['password'] = $this->encryption->encrypt($this->input->post('user_password'));
-		$this->login_model->update($this->input->post('user_email'), $data);
+		$data['password'] = $this->encryption->encrypt($this->input->post('password'));
+		$this->login_model->update($this->input->post('email'), $data);
 		$this->load->view('login');
 	}
 

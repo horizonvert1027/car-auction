@@ -23,28 +23,28 @@ class Register extends CI_Controller
 
 	function validation()
 	{
-		$this->form_validation->set_rules('user_name', 'Name', 'required|trim');
-		$this->form_validation->set_rules('user_email', 'Email Address', 'required|trim|valid_email|is_unique[user.email]');
-		$this->form_validation->set_rules('user_password', 'Password', 'required');
+		$this->form_validation->set_rules('name', 'Name', 'required|trim');
+		$this->form_validation->set_rules('email', 'Email Address', 'required|trim|valid_email|is_unique[user.email]');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
+		$this->form_validation->set_message('matches', 'The two password inputs do not match');
 		if($this->form_validation->run())
 		{
 			$verification_key = md5(rand());
-			$encrypted_password = $this->encryption->encrypt($this->input->post('user_password'));
+			$encrypted_password = $this->encryption->encrypt($this->input->post('password'));
 			$data = array(
-				'username'  => $this->input->post('user_name'),
-				'email'  => $this->input->post('user_email'),
+				'username'  => $this->input->post('name'),
+				'email'  => $this->input->post('email'),
 				'password' => $encrypted_password,
 				'verify_key' => $verification_key
 			);
 			$id = $this->register_model->insert($data);
 			if ($id > 0)
 			{
-				$subject = "Please verify email for login";
+				$subject = "Email Verification";
 				$message = "
-    <p>Hi ".$this->input->post('user_name')."</p>
-    <p>This is email verification mail from Codeigniter Login Register system. For complete registration process and login into system. First you want to verify you email by click this <a href='".base_url()."register/verify_email/".$verification_key."'>link</a>.</p>
-    <p>Once you click this link your email will be verified and you can login into system.</p>
-    <p>Thanks,</p>
+    <p>Hi ".$this->input->post('name')."</p>
+    <p>Verify you email by clicking this <a href='".base_url()."register/verify_email/".$verification_key."'>link</a>.</p>
     ";
 				$config = array(
 					'protocol'  => 'smtp',
@@ -60,12 +60,12 @@ class Register extends CI_Controller
 				$this->load->library('email', $config);
 				$this->email->set_newline("\r\n");
 				$this->email->from('car_auction_company');
-				$this->email->to($this->input->post('user_email'));
+				$this->email->to($this->input->post('email'));
 				$this->email->subject($subject);
 				$this->email->message($message);
 				if($this->email->send())
 				{
-					$this->session->set_flashdata('message', 'Check in your email for email verification mail');
+					$this->session->set_flashdata('message', 'Check email for verification');
 					redirect('register');
 				}
 				echo $this->email->print_debugger();
@@ -84,7 +84,7 @@ class Register extends CI_Controller
 			$verification_key = $this->uri->segment(3);
 			if($this->register_model->verify_email($verification_key))
 			{
-				$data['message'] = '<h1 align="center">Your Email has been successfully verified, now you can login from <a href="'.base_url().'login">here</a></h1>';
+				$data['message'] = '<h1 align="center">Email successfully verified, login by clicking <a href="'.base_url().'login">here</a></h1>';
 			}
 			else
 			{
