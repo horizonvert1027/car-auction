@@ -34,7 +34,7 @@ class Register extends CI_Controller
 				'username'  => $this->input->post('user_name'),
 				'email'  => $this->input->post('user_email'),
 				'password' => $encrypted_password,
-				'verification_key' => $verification_key
+				'verify_key' => $verification_key
 			);
 			$id = $this->register_model->insert($data);
 			if ($id > 0)
