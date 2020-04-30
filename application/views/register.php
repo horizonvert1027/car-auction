@@ -39,10 +39,10 @@
 					<span class="text-danger"><?php echo form_error('user_password'); ?></span>
 				</div>
 				<div class="form-group">
-					<a href="<?php echo base_url(); ?>login">Login</a>
+					<input type="submit" name="register" value="Register" class="btn btn-info" />
 				</div>
 				<div class="form-group">
-					<input type="submit" name="register" value="Register" class="btn btn-info" />
+					<a href="<?php echo base_url(); ?>login">Login</a>
 				</div>
 			</form>
 		</div>
