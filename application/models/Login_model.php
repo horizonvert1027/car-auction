@@ -16,7 +16,7 @@ class Login_model extends CI_Model
 		{
 			foreach($query->result() as $row)
 			{
-				if($row->is_email_verified == true)
+				if($row->verification == true)
 				{
 					$store_password = $this->encryption->decrypt($row->password);
 					if($password == $store_password)
