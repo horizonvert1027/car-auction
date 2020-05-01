@@ -49,7 +49,7 @@ class Product extends CI_Controller {
 				'description' => $this->input->post('description'),
 				'image' => $uploadData['file_name'],
 				'starting_price' => $this->input->post('starting_price'),
-				'bid_price' => $this->input->post('bid_price'),
+				'bid_price' => $this->input->post('bid_price')
 
 			);
 			$id = $this->product_model->insert($data);
