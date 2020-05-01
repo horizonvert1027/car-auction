@@ -7,6 +7,23 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<title>Document</title>
+	<style>
+		/* Always set the map height explicitly to define the size of the div
+		 * element that contains the map. */
+		#map {
+			height: 800px;
+			width: 800px;
+			margin-left: auto;
+			margin-right: auto;
+
+		}
+		/* Optional: Makes the sample page fill the window. */
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -105,6 +122,7 @@
 														</div>
 													</div>
 												</div>
+
 												<div class="row">
 													<div class="col">
 														<div class="form-group">
@@ -113,11 +131,18 @@
 														</div>
 													</div>
 												</div>
-											</div>
+												<div class="row">
+													<div class="col">
+														<div class="form-group">
+															<label>Location</label>
+															<div id="map"></div>
+														</div>
+													</div>
+												</div>
 										</div>
 
 										<div class="row">
-											<div class="col d-flex justify-content-end">
+											<div class="col d-flex justify-content-center">
 												<button class="btn btn-primary" type="submit">Save Changes</button>
 											</div>
 										</div>
@@ -135,7 +160,52 @@
 	</div>
 
 </div>
+<script>
+	// Code from Google API, key from friend
+	// Note: This example requires that you consent to location sharing when
+	// prompted by your browser. If you see the error "The Geolocation service
+	// failed.", it means you probably did not give permission for the browser to
+	// locate you.
+	var map, infoWindow;
+	function initMap() {
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: -34.397, lng: 150.644},
+			zoom: 15
+		});
+		infoWindow = new google.maps.InfoWindow;
 
+		// Try HTML5 geolocation.
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+
+				infoWindow.setPosition(pos);
+				infoWindow.setContent('Your Location.');
+				infoWindow.open(map);
+				map.setCenter(pos);
+			}, function() {
+				handleLocationError(true, infoWindow, map.getCenter());
+			});
+		} else {
+			// Browser doesn't support Geolocation
+			handleLocationError(false, infoWindow, map.getCenter());
+		}
+	}
+
+	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+		infoWindow.setPosition(pos);
+		infoWindow.setContent(browserHasGeolocation ?
+				'Error: The Geolocation service failed.' :
+				'Error: Your browser doesn\'t support geolocation.');
+		infoWindow.open(map);
+	}
+</script>
+<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo81YH7Kxp3aYVuMPROHhQJNKSDpSXu-Y&callback=initMap">
+</script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
