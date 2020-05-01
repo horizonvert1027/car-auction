@@ -68,7 +68,7 @@
 					<div class="card-body">
 						<h4 class="card-title"><?php echo $product['name']; ?></h4>
 						<p class="card-text"><?php echo $product['description']; ?></p>
-						<p class="card-text"><?php echo $product['contact']; ?></p>
+
 
 					</div>
 					<div class="card-footer">
