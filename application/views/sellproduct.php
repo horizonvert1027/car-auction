@@ -103,14 +103,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col">
-													<div class="form-group">
-														<label>Contact</label>
-														<input class="form-control" name="contact" type="text" placeholder="">
-													</div>
-												</div>
-											</div>
+
 
 										</form>
 
