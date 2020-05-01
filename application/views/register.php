@@ -25,22 +25,22 @@
 			<form method="post" action="<?php echo base_url(); ?>register/validation">
 				<div class="form-group">
 					<label>Name</label>
-					<input type="text" name="user_name" class="form-control" value="<?php echo set_value('name'); ?>" />
+					<input type="text" name="name" class="form-control" value="<?php echo set_value('name'); ?>" />
 					<span class="text-danger"><?php echo form_error('name'); ?></span>
 				</div>
 				<div class="form-group">
 					<label>Email</label>
-					<input type="text" name="user_email" class="form-control" value="<?php echo set_value('email'); ?>" />
+					<input type="text" name="email" class="form-control" value="<?php echo set_value('email'); ?>" />
 					<span class="text-danger"><?php echo form_error('email'); ?></span>
 				</div>
 				<div class="form-group">
 					<label>Password</label>
-					<input type="password" name="user_password" class="form-control" value="<?php echo set_value('password'); ?>" />
+					<input type="password" name="password" class="form-control" value="<?php echo set_value('password'); ?>" />
 					<span class="text-danger"><?php echo form_error('password'); ?></span>
 				</div>
 				<div class="form-group">
 					<label>Repeat Password</label>
-					<input type="password" name="user_password2" class="form-control" value="<?php echo set_value('password2'); ?>" />
+					<input type="password" name="password2" class="form-control" value="<?php echo set_value('password2'); ?>" />
 					<span class="text-danger"><?php echo form_error('password2'); ?></span>
 				</div>
 				<div class="form-group">
