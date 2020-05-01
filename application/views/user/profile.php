@@ -136,14 +136,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col">
-														<div class="form-group">
-															<label>Contact</label>
-															<input class="form-control" type="text" name="contact" value="<?php echo $user->contact ?>">
-														</div>
-													</div>
-												</div>
+
 												<div class="row">
 													<div class="col">
 														<div class="form-group">
