@@ -105,6 +105,11 @@
 											</div>
 
 
+											<div class="row">
+												<div class="col d-flex justify-content-center">
+													<button class="btn btn-primary" type="submit">Publish Item</button>
+												</div>
+											</div>
 										</form>
 
 									</div>
