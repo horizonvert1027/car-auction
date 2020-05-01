@@ -64,7 +64,7 @@
 		<?php foreach($products as $product) { ?>
 			<div class="col-lg-3 col-md-6 mb-4">
 				<div class="card h-100">
-					<img class="card-img-top" src='<?= base_url() ?>assets/images/products/<?= $product['image'] ?>' alt="product_image" style="width: 200px;, height: 200px;">
+					<img class="card-img-top" src='<?= base_url() ?>assets/images/products/<?= $product['image'] ?>' alt="product_image">
 					<div class="card-body">
 						<h4 class="card-title"><?php echo $product['name']; ?></h4>
 						<p class="card-text"><?php echo $product['description']; ?></p>
