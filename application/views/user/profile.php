@@ -135,7 +135,7 @@
 													<div class="col">
 														<div class="form-group">
 															<label>Contact</label>
-															<input class="form-control" type="text" name="email" value="<?php echo $user->contact ?>">
+															<input class="form-control" type="text" name="contact" value="<?php echo $user->contact ?>">
 														</div>
 													</div>
 												</div>
