@@ -139,13 +139,15 @@
 														</div>
 													</div>
 												</div>
-										</div>
-
-										<div class="row">
-											<div class="col d-flex justify-content-center">
-												<button class="btn btn-primary" type="submit">Save Changes</button>
+												<div class="row">
+													<div class="col d-flex justify-content-center">
+														<button class="btn btn-primary" type="submit">Save Changes</button>
+													</div>
+												</div>
 											</div>
 										</div>
+
+
 									</form>
 
 								</div>
