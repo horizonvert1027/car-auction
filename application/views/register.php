@@ -8,7 +8,7 @@
 <body>
 <div class="container">
 	<br />
-	<h3 align="center">Welcome Register</h3>
+	<h3 align="center">Register</h3>
 	<br />
 	<div class="panel panel-default">
 		<div class="panel-body">

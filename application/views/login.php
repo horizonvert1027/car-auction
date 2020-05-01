@@ -8,7 +8,7 @@
 <body>
 <div class="container">
 	<br />
-	<h3 align="center">Complete User Registration and Login System in Codeigniter</h3>
+	<h3 align="center">Login</h3>
 	<br />
 	<div class="panel panel-default">
 		<div class="panel-body">
