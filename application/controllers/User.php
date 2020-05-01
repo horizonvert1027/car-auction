@@ -22,7 +22,8 @@ class User extends CI_Controller {
 		$data = array('user' => $user);
 		$this->load->view('user/profile', $data);
 	}
-
+//$this->upload->initialize($config); set preferences by calling the initialize function
+//https://codeigniter.com/userguide2/libraries/file_uploading.html
 	public function upload()
 	{
 		$config = array(
@@ -52,7 +53,7 @@ class User extends CI_Controller {
 		$this->user_model->update($this->session->userdata('id'), $data);
 		redirect('user/profile');
 	}
-
+//destroy session
 	public function logout()
 	{
 		$this->session->unset_userdata('id');

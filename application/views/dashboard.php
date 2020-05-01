@@ -70,6 +70,7 @@
 						<p class="card-text"><?php echo $product['description']; ?></p>
 
 
+
 					</div>
 					<div class="card-footer">
 						<a href="#" class="btn btn-primary">Find Out More!</a>

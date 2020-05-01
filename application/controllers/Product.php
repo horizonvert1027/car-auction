@@ -15,7 +15,7 @@ class Product extends CI_Controller {
 		$this->load->model('product_model');
 		$this->load->library('upload');
 	}
-
+// list dashboard with the data imported from sell product
 	function index()
 	{
 		$products = $this->product_model->get();
@@ -27,7 +27,7 @@ class Product extends CI_Controller {
 	{
 		$this->load->view('sellproduct');
 	}
-
+//https://codeigniter.com/userguide3/libraries/file_uploading.html file uploading
 	public function sell_post()
 	{
 		$config = array(
@@ -44,6 +44,7 @@ class Product extends CI_Controller {
 			$uploadData = $this->upload->data();
 			$data["image"] = $uploadData['file_name'];
 
+// Other information that needed to be stored
 			$data = array(
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),

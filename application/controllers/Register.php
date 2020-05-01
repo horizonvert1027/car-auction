@@ -1,10 +1,10 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+// The login and sign up system is referenced from https://www.youtube.com/watch?v=KSlrhaKt0f8 the Webslesson
 class Register extends CI_Controller
 {
-
+//Import model and library
 	public function __construct()
 	{
 		parent::__construct();
@@ -21,6 +21,11 @@ class Register extends CI_Controller
 		$this->load->view('register');
 	}
 
+	//validation register rules, error message sent when requirements were not satisfied
+	//encrypted_password
+	//Insert data into database
+	// id>0 as condition decide to send mail or not
+	//Email setting was from codeigniter document and youtube tutorial mentioned above
 	function validation()
 	{
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
@@ -76,7 +81,7 @@ class Register extends CI_Controller
 			$this->index();
 		}
 	}
-
+	//Email verification by checking whether the key is the same
 	function verify_email()
 	{
 		if($this->uri->segment(3))
