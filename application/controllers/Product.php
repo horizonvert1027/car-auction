@@ -50,6 +50,7 @@ class Product extends CI_Controller {
 				'image' => $uploadData['file_name'],
 				'starting_price' => $this->input->post('starting_price'),
 				'bid_price' => $this->input->post('bid_price'),
+				'contact' => $this->input->post('contact')
 			);
 			$id = $this->product_model->insert($data);
 			if ($id > 0) {
