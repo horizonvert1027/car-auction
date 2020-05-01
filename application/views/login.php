@@ -24,12 +24,12 @@
 			?>
 			<form method="post" action="<?php echo base_url(); ?>login/validation">
 				<div class="form-group">
-					<label>Enter Email Address</label>
+					<label>Email</label>
 					<input type="text" name="email" class="form-control" value="<?php echo set_value('email'); ?>" />
 					<span class="text-danger"><?php echo form_error('email'); ?></span>
 				</div>
 				<div class="form-group">
-					<label>Enter Password</label>
+					<label>Password</label>
 					<input type="password" name="password" class="form-control" value="<?php echo set_value('password'); ?>" />
 					<span class="text-danger"><?php echo form_error('password'); ?></span>
 				</div>

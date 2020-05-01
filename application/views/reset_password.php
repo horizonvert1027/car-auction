@@ -24,9 +24,9 @@
 			?>
 			<form method="post" action="<?php echo base_url(); ?>login/reset_password_validation">
 				<div class="form-group">
-					<label>Enter Email Address</label>
-					<input type="text" name="user_email" class="form-control" value="<?php echo set_value('user_email'); ?>" />
-					<span class="text-danger"><?php echo form_error('user_email'); ?></span>
+					<label>Email Address</label>
+					<input type="text" name="email" class="form-control" value="<?php echo set_value('email'); ?>" />
+					<span class="text-danger"><?php echo form_error('email'); ?></span>
 				</div>
 				<div class="form-group">
 					<input type="submit" name="reset_password" value="Reset_password" class="btn btn-info" />
