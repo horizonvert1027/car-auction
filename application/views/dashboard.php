@@ -54,8 +54,8 @@
 
 	<!-- Jumbotron Header -->
 	<header class="jumbotron my-4">
-		<h1 class="display-3">A Warm Welcome!</h1>
-		<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+		<h1 class="display-3">Feature Product</h1>
+		<p class="lead">Still developing, I hope I can finish this function before 5/5</p>
 		<a href="#" class="btn btn-primary btn-lg">Call to action!</a>
 	</header>
 
@@ -84,7 +84,7 @@
 <!-- Footer -->
 <footer class="py-5 bg-dark">
 	<div class="container">
-		<p class="m-0 text-center text-white">Your Website 2019</p>
+		<p class="m-0 text-center text-white">Website 2020 :)</p>
 	</div>
 	<!-- /.container -->
 </footer>
