@@ -28,7 +28,7 @@
 			<form method="post" action="<?php echo base_url(); ?>login/update_password">
 				<div class="form-group">
 					<label>Email</label>
-					<input type="text" name="email" class="form-control" value="<?php echo $email->email; ?>" readonly="readonly" />
+					<input type="text" name="email" class="form-control" value="<?php echo $user->email; ?>" readonly="readonly" />
 					<span class="text-danger"><?php echo form_error('email'); ?></span>
 				</div>
 				<div class="form-group">
