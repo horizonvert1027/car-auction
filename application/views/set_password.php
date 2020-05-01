@@ -28,8 +28,8 @@
 			<form method="post" action="<?php echo base_url(); ?>login/update_password">
 				<div class="form-group">
 					<label>Your Email Address</label>
-					<input type="text" name="user_email" class="form-control" value="<?php echo $email; ?>" readonly="readonly" />
-					<span class="text-danger"><?php echo form_error('user_email'); ?></span>
+					<input type="text" name="email" class="form-control" value="<?php echo $email; ?>" readonly="readonly" />
+					<span class="text-danger"><?php echo form_error('email'); ?></span>
 				</div>
 				<div class="form-group">
 					<label>Enter Password</label>
