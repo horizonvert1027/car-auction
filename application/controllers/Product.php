@@ -59,5 +59,47 @@ class Product extends CI_Controller {
 			}
 		}
 	}
+
+	function search()
+	{
+		$output = '';
+		$product_name = '';
+		if($this->input->post('query'))
+		{
+			$product_name = $this->input->post('query');
+		}
+		$data = $this->product_model->getByName($product_name);
+
+		if($data->num_rows() > 0)
+		{
+			foreach($data->result() as $row)
+			{
+				$output .= '
+			<div class="col-lg-3 col-md-6 mb-4">
+				<div class="card h-100">
+					<img class="card-img-top" src='.base_url().'assets/images/products/'.$row->image.' alt="product_image">
+					<div class="card-body">
+						<h4 class="card-title">'.$row->name.'</h4>
+						<p class="card-text">'.$row->description.'</p>
+
+
+
+					</div>
+					<div class="card-footer">
+						<a href="#" class="btn btn-primary">Find Out More!</a>
+					</div>
+				</div>
+			</div>
+    ';
+			}
+		}
+		else
+		{
+			$output .= '<tr>
+       <td colspan="5">No Data Found</td>
+      </tr>';
+		}
+		echo $output;
+	}
 }
 

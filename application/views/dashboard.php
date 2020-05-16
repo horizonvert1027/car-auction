@@ -18,6 +18,10 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" name="search_text" id="search_text" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
 				<li class="nav-item active">
 					<a class="nav-link" href="#">Notification
 						<span class="sr-only">(current)</span>
@@ -60,25 +64,7 @@
 	</header>
 
 	<!-- Page Features -->
-	<div class="row text-center">
-		<?php foreach($products as $product) { ?>
-			<div class="col-lg-3 col-md-6 mb-4">
-				<div class="card h-100">
-					<img class="card-img-top" src='<?= base_url() ?>assets/images/products/<?= $product['image'] ?>' alt="product_image">
-					<div class="card-body">
-						<h4 class="card-title"><?php echo $product['name']; ?></h4>
-						<p class="card-text"><?php echo $product['description']; ?></p>
-
-
-
-					</div>
-					<div class="card-footer">
-						<a href="#" class="btn btn-primary">Find Out More!</a>
-					</div>
-				</div>
-			</div>
-		<?php } ?>
-	</div>
+	<div class="row text-center" id="result"></div>
 	<!-- /.row -->
 
 </div>
@@ -92,12 +78,40 @@
 	<!-- /.container -->
 </footer>
 
-
-
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
 
+        load_data();
+
+        function load_data(query)
+        {
+            $.ajax({
+                url:"<?php echo base_url(); ?>product/search",
+                method:"POST",
+                data:{query:query},
+                success:function(data){
+                    $('#result').html(data);
+                }
+            })
+        }
+
+        $('#search_text').keyup(function(){
+            let search = $(this).val();
+            if(search != '')
+            {
+                load_data(search);
+            }
+            else
+            {
+                load_data();
+            }
+        });
+    });
+</script>
 
 
 </body>

@@ -63,6 +63,7 @@ $route['dashboard'] = 'product';
 $route['product/sell'] = 'product/sell';
 $route['product/sell_post']['post'] = 'product/sell_post';
 $route['product/buy'] = 'product/buy';
+$route['product/search']['post'] = 'product/search';
 
 $route['user'] = 'user';
 $route['user/profile'] = 'user/profile';
