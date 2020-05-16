@@ -77,7 +77,7 @@
 </head>
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
 	<div class="container">
 		<a class="navbar-brand" href="<?php echo base_url()."dashboard" ?>">Start Bootstrap</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,7 +126,12 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="card-body">
-			<!-- PRODUCT -->
+			<?php foreach($items->result() as $item) { ?>
+				<article class="article_text">
+					<p class="segment_headding"><?php echo $item->id; ?></p>
+					<?php echo $item->user_id; ?>
+				</article>
+			<?php } ?>
 			<div class="row">
 				<div class="col-12 col-sm-12 col-md-2 text-center">
 					<img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120" height="80">

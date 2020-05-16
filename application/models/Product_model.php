@@ -10,7 +10,6 @@ class Product_model extends CI_Model
 
 	function getByName($name) {
 		$query = $this->db->like("name", $name)->get('product');
-//		$products = $query->result_array();
 		return $query;
 	}
 

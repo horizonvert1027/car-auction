@@ -13,6 +13,7 @@ class Login extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
 		$this->load->model('login_model');
+		$this->load->model('cart_model');
 	}
 
 	function index()
@@ -29,6 +30,12 @@ class Login extends CI_Controller {
 			$result = $this->login_model->can_login($this->input->post('email'), $this->input->post('password'));
 			if($result == '')
 			{
+				$data = array(
+					'user_id'  => $this->session->get_userdata()['id'],
+					'status'  => "in_progress",
+					'created_at' => date('Y-m-d H:i:s'),
+				);
+				$this->cart_model->insert($data);
 				redirect('dashboard');
 			}
 			else

@@ -13,6 +13,8 @@ class Product extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
 		$this->load->model('product_model');
+		$this->load->model('cart_model');
+		$this->load->model('cart_item_model');
 		$this->load->library('upload');
 	}
 // list dashboard with the data imported from sell product
@@ -88,6 +90,9 @@ class Product extends CI_Controller {
 					<div class="card-footer">
 						<a href="#" class="btn btn-primary">Find Out More!</a>
 					</div>
+					<div class="card-footer">
+						<a href="'. base_url('product/add_to_cart/' . $row->id) .'" class="btn btn-success">Add to cart</a>
+					</div>
 				</div>
 			</div>
     ';
@@ -96,10 +101,26 @@ class Product extends CI_Controller {
 		else
 		{
 			$output .= '<tr>
-       <td colspan="5">No Data Found</td>
-      </tr>';
+       	<td colspan="5">No Data Found</td>
+      	</tr>';
 		}
 		echo $output;
+	}
+
+	function add_to_cart() {
+		$product_id = $this->uri->segment(3);
+		$cart = $this->cart_model->getByUser();
+
+		$data = array(
+			'cart_id'  => $cart['id'],
+			'product_id'  => $product_id,
+			'quantity' => 1,
+		);
+		$this->cart_item_model->insert($data);
+
+		$cart_items = $this->cart_item_model->getByCart($cart['id']);
+		$data = array('items' => $cart_items);
+		$this->load->view('cart', $data);
 	}
 }
 
