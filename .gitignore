@@ -28,3 +28,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/tests/
 /tests/results/
 database.php
+ci_sessions/

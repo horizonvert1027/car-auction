@@ -106,21 +106,5 @@ class Product extends CI_Controller {
 		}
 		echo $output;
 	}
-
-	function add_to_cart() {
-		$product_id = $this->uri->segment(3);
-		$cart = $this->cart_model->getByUser();
-
-		$data = array(
-			'cart_id'  => $cart['id'],
-			'product_id'  => $product_id,
-			'quantity' => 1,
-		);
-		$this->cart_item_model->insert($data);
-
-		$cart_items = $this->cart_item_model->getByCart($cart['id']);
-		$data = array('items' => $cart_items);
-		$this->load->view('cart', $data);
-	}
 }
 
