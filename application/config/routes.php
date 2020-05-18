@@ -63,10 +63,13 @@ $route['dashboard'] = 'product';
 $route['product/sell'] = 'product/sell';
 $route['product/sell_post']['post'] = 'product/sell_post';
 $route['product/buy'] = 'product/buy';
+$route['product/buy/:num'] = 'product/buyProduct/$1';
+$route['paypal/success'] = 'product/paymentSuccess';
+$route['paypal/fail'] = 'product/paymentFail';
 
 $route['product/add_to_cart/:num']['post'] = 'cart/update';
 $route['product/add_to_cart/:num'] = 'cart/add_to_cart/$1';
-
+$route['cart/checkout'] = 'cart/checkout';
 
 $route['user'] = 'user';
 $route['user/profile'] = 'user/profile';

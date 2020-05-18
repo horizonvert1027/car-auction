@@ -35,7 +35,8 @@ class Login extends CI_Controller {
 					'status'  => "in_progress",
 					'created_at' => date('Y-m-d H:i:s'),
 				);
-				$this->cart_model->insert($data);
+				$cart_id = $this->cart_model->insert($data);
+				$this->session->set_userdata('cart_id', $cart_id);
 				redirect('dashboard');
 			}
 			else

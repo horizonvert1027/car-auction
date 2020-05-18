@@ -169,7 +169,7 @@
 		</div>
 		<div class="card-footer">
 			<div class="pull-right" style="margin: 10px">
-				<a href="" class="btn btn-success pull-right">Checkout</a>
+				<a href="<?php echo base_url('/cart/checkout'); ?>" class="btn btn-success pull-right">Checkout</a>
 				<div class="pull-right" style="margin: 5px">
 					Total price: <b id="total_price">50.00€</b>
 				</div>
@@ -212,6 +212,7 @@
         });
 
         items = [];
+        total_price = 0;
 	}
 
 	function remove_item(id) {
