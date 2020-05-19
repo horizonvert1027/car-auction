@@ -9,7 +9,7 @@ class Cart_item_model extends CI_Model
 	}
 
 	function getByCart($cart_id) {
-		$query = $this->db->select("cart_item.id, product.name, product.image, product.bid_price, product.description, cart_item.quantity")
+		$query = $this->db->select("product.id as product_id, cart_item.id, product.name, product.image, product.bid_price, product.description, cart_item.quantity")
 			->from("cart_item")
 			->where("cart_item.cart_id", $cart_id)
 			->join('product', 'cart_item.product_id = product.id')

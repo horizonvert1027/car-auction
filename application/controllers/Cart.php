@@ -16,6 +16,7 @@ class Cart extends CI_Controller {
 		$this->load->model('cart_model');
 		$this->load->model('cart_item_model');
 		$this->load->library('upload');
+		$this->load->library('paypal_lib');
 	}
 
 	function add_to_cart() {
@@ -51,34 +52,27 @@ class Cart extends CI_Controller {
 	}
 
 	function checkout() {
-		var_dump("haha");
-		exit();
-		$id = $this->uri->segment(3);
+		$user_id = $this->session->get_userdata()['id'];
+		$cart_id = $this->session->get_userdata()['cart_id'];
+		$cart_items = $this->cart_item_model->getByCart($cart_id);
 
 		//Set variables for paypal form
 		$returnURL = base_url().'paypal/success'; //payment success url
 		$failURL = base_url().'paypal/fail'; //payment fail url
 		$notifyURL = base_url().'paypal/ipn'; //ipn url
-		//get particular product data
-		$product = $this->product_model->getProducts($id);
-		$userID = 1; //current user id
-		$logo = base_url().'Your_logo_url';
 
+		//get particular product data
 		$this->paypal_lib->add_field('return', $returnURL);
 		$this->paypal_lib->add_field('fail_return', $failURL);
 		$this->paypal_lib->add_field('notify_url', $notifyURL);
-		$this->paypal_lib->add_field('custom', $userID);
-		$this->paypal_lib->add_field('item_number_1',  $product['id']);
-		$this->paypal_lib->add_field('item_name_1', $product['name']);
-		$this->paypal_lib->add_field('quantity_1', 3);
-		$this->paypal_lib->add_field('amount_1',  '15');
+		$this->paypal_lib->add_field('custom', $user_id);
 
-		$this->paypal_lib->add_field('item_number_2',  50);
-		$this->paypal_lib->add_field('item_name_2', 'dmm');
-		$this->paypal_lib->add_field('quantity_2', 5);
-		$this->paypal_lib->add_field('amount_2',  '20');
-
-		$this->paypal_lib->image($logo);
+		foreach ($cart_items as $index => $cart_item) {
+			$this->paypal_lib->add_field('item_number_' . $index,  $cart_item['product_id']);
+			$this->paypal_lib->add_field('item_name_' . $index, $cart_item['name']);
+			$this->paypal_lib->add_field('quantity_' . $index, $cart_item['quantity']);
+			$this->paypal_lib->add_field('amount_' . $index,  $cart_item['bid_price']);
+		}
 
 		$this->paypal_lib->paypal_auto_form();
 	}
