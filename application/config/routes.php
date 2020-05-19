@@ -70,6 +70,8 @@ $route['paypal/fail'] = 'product/paymentFail';
 $route['product/add_to_cart/:num']['post'] = 'cart/update';
 $route['product/add_to_cart/:num'] = 'cart/add_to_cart/$1';
 $route['cart/checkout'] = 'cart/checkout';
+$route['cart/invoice'] = 'cart/invoice';
+$route['cart/continue_shop'] = 'cart/continue_shop';
 
 $route['user'] = 'user';
 $route['user/profile'] = 'user/profile';

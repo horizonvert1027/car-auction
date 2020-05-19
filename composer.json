@@ -13,7 +13,8 @@
 	"require": {
 		"php": ">=5.3.7",
 	  	"ext-mysqli": "*",
-		"ext-curl": "^7.3"
+		"ext-curl": "^7.3",
+		"dompdf/dompdf": "^0.8.5"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

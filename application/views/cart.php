@@ -221,18 +221,18 @@
 
 	function update_items() {
         $(".cart-item").each(function(index) {
-            let price = parseInt($(this).find(".price").text());
-            let quantity = parseInt($(this).find(".qty").val());
-            total_price += price * quantity;
-
-            let item_data = {};
-            item_data['id'] = $(this).attr('id').split("_")[1];
-            item_data['quantity'] = quantity;
-            item_data['is_deleted'] = false;
-            if ($(this).is(":hidden")) {
-                item_data['is_deleted'] = true;
-            }
-            items.push(item_data);
+			let price = parseInt($(this).find(".price").text());
+			let quantity = parseInt($(this).find(".qty").val());
+			let item_data = {};
+			item_data['id'] = $(this).attr('id').split("_")[1];
+			item_data['quantity'] = quantity;
+			item_data['is_deleted'] = false;
+			if ($(this).is(":hidden")) {
+				item_data['is_deleted'] = true;
+			} else {
+				total_price += price * quantity;
+			}
+			items.push(item_data);
         });
 	}
 

@@ -94,9 +94,6 @@ class Product extends CI_Controller {
 					<div class="card-footer">
 						<a href="'. base_url('product/add_to_cart/' . $row->id) .'" class="btn btn-success">Add to cart</a>
 					</div>
-					<div class="card-footer">
-						<a href="'. base_url('product/buy/' . $row->id) .'" class="btn btn-success">Buy</a>
-					</div>
 				</div>
 			</div>
     ';

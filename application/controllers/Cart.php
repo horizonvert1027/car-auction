@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require 'vendor/autoload.php';
+use Dompdf\Dompdf;
 
 class Cart extends CI_Controller {
 
@@ -12,6 +14,7 @@ class Cart extends CI_Controller {
 		}
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
+		$this->load->model('user_model');
 		$this->load->model('product_model');
 		$this->load->model('cart_model');
 		$this->load->model('cart_item_model');
@@ -68,13 +71,58 @@ class Cart extends CI_Controller {
 		$this->paypal_lib->add_field('custom', $user_id);
 
 		foreach ($cart_items as $index => $cart_item) {
-			$this->paypal_lib->add_field('item_number_' . $index,  $cart_item['product_id']);
-			$this->paypal_lib->add_field('item_name_' . $index, $cart_item['name']);
-			$this->paypal_lib->add_field('quantity_' . $index, $cart_item['quantity']);
-			$this->paypal_lib->add_field('amount_' . $index,  $cart_item['bid_price']);
+			$this->paypal_lib->add_field('item_number_' . ($index + 1),  $cart_item['product_id']);
+			$this->paypal_lib->add_field('item_name_' . ($index + 1), $cart_item['name']);
+			$this->paypal_lib->add_field('quantity_' . ($index + 1), $cart_item['quantity']);
+			$this->paypal_lib->add_field('amount_' . ($index + 1),  $cart_item['bid_price']);
 		}
 
 		$this->paypal_lib->paypal_auto_form();
+	}
+
+	public function invoice()
+	{
+		$user = $this->user_model->get($this->session->get_userdata()['id']);
+		$cart_id = $this->session->get_userdata()['cart_id'];
+		$cart_items = $this->cart_item_model->getByCart($cart_id);
+
+		$html_output = "<h1>The invoice of ". $user->username ."</h1>";
+		$html_output .= "<table><tr><th>#</th><th>Product name</th><th>Price</th><th>Quantity</th></tr>";
+		$total = 0;
+
+		foreach ($cart_items as $index => $cart_item) {
+			$html_output .=
+				"<tr>" .
+					"<td>" . ($index + 1) . "</td>" .
+					"<td>" . $cart_item['name'] . "</td>" .
+					"<td>" . $cart_item['bid_price'] . "</td>" .
+					"<td>" . $cart_item['quantity'] . "</td>" .
+				"</tr>";
+			$total += $cart_item['bid_price'] * $cart_item['quantity'];
+		}
+
+		$html_output .=	"</table>";
+		$html_output .=	"<h3>Total: $" . $total . "</h3>";
+
+		// instantiate and use the dompdf class
+		$dompdf = new Dompdf();
+		$dompdf->loadHtml($html_output);
+
+		$dompdf->setPaper('A4', 'landscape');
+
+		$dompdf->render();
+		$dompdf->stream();
+	}
+
+	public function continue_shop() {
+		$data = array(
+			'user_id'  => $this->session->get_userdata()['id'],
+			'status'  => "in_progress",
+			'created_at' => date('Y-m-d H:i:s'),
+		);
+		$cart_id = $this->cart_model->insert($data);
+		$this->session->set_userdata('cart_id', $cart_id);
+		redirect('dashboard');
 	}
 }
 

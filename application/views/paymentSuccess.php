@@ -11,6 +11,8 @@
 	<div class="row">
 		<span>Your payment was successful done, thank you for purchase.</span><br/>
 	</div>
+	<a href="<?php echo base_url("cart/invoice")?>" >Download invoice</a>
+	<a href="<?php echo base_url("cart/continue_shop")?>" >Continue shopping</a>
 </div>
 </body>
 </html>
