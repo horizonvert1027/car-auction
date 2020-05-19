@@ -19,9 +19,9 @@ class Cart_item_model extends CI_Model
 
 	function insert($data)
 	{
-		$cart_item = $this->db->from('cart')
-			->join('cart_item', 'cart_item.cart_id = cart.id')
-			->where('cart_item.product_id', $data['product_id'])
+		$cart_item = $this->db->from('cart_item')
+			->where('cart_id', $data['cart_id'])
+			->where('product_id', $data['product_id'])
 			->get();
 		if ($cart_item->num_rows() > 0)
 			return;

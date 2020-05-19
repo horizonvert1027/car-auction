@@ -15,6 +15,8 @@ class Cart_model extends CI_Model
 
 	function insert($data)
 	{
+		var_dump($data);
+		exit();
 		$this->db->insert('cart', $data);
 		return $this->db->insert_id();
 	}
