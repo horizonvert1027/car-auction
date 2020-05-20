@@ -18,7 +18,7 @@ class Product extends CI_Controller {
 		$this->load->library('upload');
 		$this->load->library('paypal_lib');
 	}
-// list dashboard with the data imported from sell product
+	// list dashboard with the data imported from sell product
 	function index()
 	{
 		$products = $this->product_model->get();
@@ -30,7 +30,7 @@ class Product extends CI_Controller {
 	{
 		$this->load->view('sellproduct');
 	}
-//https://codeigniter.com/userguide3/libraries/file_uploading.html file uploading
+	//https://codeigniter.com/userguide3/libraries/file_uploading.html file uploading
 	public function sell_post()
 	{
 		$config = array(
@@ -67,11 +67,16 @@ class Product extends CI_Controller {
 	{
 		$output = '';
 		$product_name = '';
+		$limit = 0;
 		if($this->input->post('query'))
 		{
 			$product_name = $this->input->post('query');
 		}
-		$data = $this->product_model->getByName($product_name);
+		if($this->input->post('limit'))
+		{
+			$limit = $this->input->post('limit');
+		}
+		$data = $this->product_model->getByName($product_name, $limit);
 
 		if($data->num_rows() > 0)
 		{

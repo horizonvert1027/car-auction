@@ -8,8 +8,8 @@ class Product_model extends CI_Model
 		return $products;
 	}
 
-	function getByName($name) {
-		$query = $this->db->like("name", $name)->get('product');
+	function getByName($name, $limit) {
+		$query = $this->db->like("name", $name)->limit($limit)->get('product');
 		return $query;
 	}
 

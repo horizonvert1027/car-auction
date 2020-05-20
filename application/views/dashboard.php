@@ -85,29 +85,44 @@
 <script>
     $(document).ready(function(){
 
-        load_data();
+        let action = "inactive";
+        let limit = 8;
+        let extra_item = 4;
+        load_data(limit);
 
-        function load_data(query)
+        function load_data(limit, query)
         {
             $.ajax({
                 url:"<?php echo base_url(); ?>product/search",
                 method:"POST",
-                data:{query:query},
+                data:{query:query, limit:limit},
                 success:function(data){
                     $('#result').html(data);
+                    action = "inactive";
                 }
             })
         }
 
         $('#search_text').keyup(function(){
             let search = $(this).val();
-            if(search != '')
+            if(search !== '')
             {
-                load_data(search);
+                load_data(limit, search);
             }
             else
             {
-                load_data();
+                load_data(limit);
+            }
+        });
+
+        $(window).scroll(function(){
+            if($(window).scrollTop() + $(window).height() > $("#result").height() && action === "inactive")
+            {
+                action = "active";
+                setTimeout(function(){
+                    limit += extra_item;
+                    load_data(limit);
+                }, 1000);
             }
         });
     });
