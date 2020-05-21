@@ -14,6 +14,7 @@ class Login extends CI_Controller {
 		$this->load->library('encryption');
 		$this->load->model('login_model');
 		$this->load->model('cart_model');
+		$this->load->helper('cookie');
 	}
 
 	function index()
@@ -30,6 +31,17 @@ class Login extends CI_Controller {
 			$result = $this->login_model->can_login($this->input->post('email'), $this->input->post('password'));
 			if($result == '')
 			{
+				if ($this->input->post("remember_me"))
+				{
+					$this->input->set_cookie('email', $this->input->post('email'), 86500); /* Create cookie for store email */
+					$this->input->set_cookie('password', $this->input->post('password'), 86500); /* Create cookie for password */
+				}
+				else
+				{
+					delete_cookie('email'); /* Delete email cookie */
+					delete_cookie('password'); /* Delete password cookie */
+				}
+
 				$data = array(
 					'user_id'  => $this->session->get_userdata()['id'],
 					'status'  => "in_progress",

@@ -14,6 +14,7 @@ class User extends CI_Controller {
 		$this->load->library('encryption');
 		$this->load->model('user_model');
 		$this->load->library('upload');
+		$this->load->helper('cookie');
 	}
 
 	function profile()
@@ -56,6 +57,8 @@ class User extends CI_Controller {
 //destroy session
 	public function logout()
 	{
+		delete_cookie('email'); /* Delete email cookie */
+		delete_cookie('password'); /* Delete password cookie */
 		$this->session->unset_userdata('id');
 		$this->session->sess_destroy();
 		redirect('login');
