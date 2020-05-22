@@ -60,6 +60,7 @@ class User extends CI_Controller {
 		delete_cookie('email'); /* Delete email cookie */
 		delete_cookie('password'); /* Delete password cookie */
 		$this->session->unset_userdata('id');
+		$this->session->unset_userdata('username');
 		$this->session->sess_destroy();
 		redirect('login');
 	}

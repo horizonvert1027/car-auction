@@ -60,8 +60,10 @@ $route['login/reset_password'] = 'login/reset_password';
 $route['login/set_password'] = 'login/set_password';
 
 $route['dashboard'] = 'product';
+$route['product/{id}'] = 'product/detail/$1';
 $route['product/sell'] = 'product/sell';
 $route['product/sell_post']['post'] = 'product/sell_post';
+//$route['product/send_comment']['post'] = 'product/send_comment';
 $route['product/buy'] = 'product/buy';
 $route['product/buy/:num'] = 'product/buyProduct/$1';
 $route['paypal/success'] = 'product/paymentSuccess';

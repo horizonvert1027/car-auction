@@ -15,6 +15,7 @@ class Product extends CI_Controller {
 		$this->load->model('product_model');
 		$this->load->model('cart_model');
 		$this->load->model('cart_item_model');
+		$this->load->model('comment_model');
 		$this->load->library('upload');
 		$this->load->library('paypal_lib');
 	}
@@ -94,7 +95,7 @@ class Product extends CI_Controller {
 
 					</div>
 					<div class="card-footer">
-						<a href="#" class="btn btn-primary">Find Out More!</a>
+						<a href="'. base_url('product/detail/' . $row->id) .'" class="btn btn-primary">Find Out More!</a>
 					</div>
 					<div class="card-footer">
 						<a href="'. base_url('product/add_to_cart/' . $row->id) .'" class="btn btn-success">Add to cart</a>
@@ -182,6 +183,31 @@ class Product extends CI_Controller {
 		$data = $this->db->get("product")->result();
 
 		echo json_encode( $data);
+	}
+
+	function detail() {
+		$id = $this->uri->segment(3);
+		$product = $this->product_model->getProducts($id);
+		$comments = $this->comment_model->get($id);
+		$data = array('product' => $product, 'comments' => $comments);
+		$this->load->view('detailproduct', $data);
+	}
+
+	function send_comment() {
+		$content = $this->input->post('content');
+
+		$data = array(
+			'user_id' => $this->session->get_userdata()['id'],
+			'product_id' => $this->uri->segment(3),
+			'content' => $content
+		);
+		$this->comment_model->insert($data);
+
+		$output =
+			"<div class='row'>
+				<p><strong>" . $this->session->get_userdata()['username'] . "</strong>:" . $content . "</p>
+			</div>";
+		echo $output;
 	}
 }
 

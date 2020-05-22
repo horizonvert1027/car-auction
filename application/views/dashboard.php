@@ -146,9 +146,6 @@
                 });
             },
             select: function(event, item) {
-                // Make your preferred selection here
-                // let item = ui.content[0].label;
-				console.log(item['item']['value']);
                 $(this).val(item).trigger('change');
             },
             minLength: 1

@@ -21,7 +21,7 @@ class Product_model extends CI_Model
 
 	//get and return product rows
 	public function getProducts($id = ''){
-		$this->db->select('id,name,image,bid_price');
+		$this->db->select('id,name,image,bid_price,description');
 		$this->db->from('product');
 		if($id){
 			$this->db->where('id',$id);
