@@ -173,5 +173,15 @@ class Product extends CI_Controller {
 			$this->product_model->storeTransaction($data);
 		}
 	}
+
+	function search_auto_completion() {
+		$term = $this->input->get('term');
+
+		$this->db->like('name', $term);
+
+		$data = $this->db->get("product")->result();
+
+		echo json_encode( $data);
+	}
 }
 

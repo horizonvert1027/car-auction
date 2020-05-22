@@ -6,6 +6,7 @@
 		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<title>Dashboard</title>
 </head>
 <body>
@@ -82,6 +83,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(document).ready(function(){
 
@@ -103,15 +105,15 @@
             })
         }
 
-        $('#search_text').keyup(function(){
+        // $('#search_text').keyup(function(){
+        $('#search_text').change(function(){
             let search = $(this).val();
-            if(search !== '')
-            {
-                load_data(limit, search);
-            }
-            else
-            {
-                load_data(limit);
+            if (!search.includes("[object Object]")) {
+                if (search !== '') {
+                    load_data(limit, search);
+                } else {
+                    load_data(limit);
+                }
             }
         });
 
@@ -125,6 +127,34 @@
                 }, 1000);
             }
         });
+
+        $("#search_text").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "<?php echo base_url(); ?>ajax/search_auto_completion",
+                    data: {
+                        term: request.term
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var resp = $.map(data, function (obj) {
+                            return obj.name;
+                        });
+
+                        response(resp);
+                    }
+                });
+            },
+            select: function(event, item) {
+                // Make your preferred selection here
+                // let item = ui.content[0].label;
+				console.log(item['item']['value']);
+                $(this).val(item).trigger('change');
+            },
+            minLength: 1
+        });
+
+
     });
 </script>
 

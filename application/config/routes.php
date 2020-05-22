@@ -42,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | This is not exactly a route, but allows you to automatically route
 | controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
+| class or method name character, so it requires translation.product/search
 | When you set this option to TRUE, it will replace ALL dashes in the
 | controller and method URI segments.
 |
@@ -77,4 +77,6 @@ $route['user'] = 'user';
 $route['user/profile'] = 'user/profile';
 $route['user/profile/post']['post'] = 'user/update_profile';
 $route['user/logout'] = 'user/logout';
+
+$route['ajax/search_auto_completion'] = 'product/search_auto_completion';
 
