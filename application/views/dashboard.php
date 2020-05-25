@@ -105,7 +105,6 @@
             })
         }
 
-        // $('#search_text').keyup(function(){
         $('#search_text').change(function(){
             let search = $(this).val();
             if (!search.includes("[object Object]")) {

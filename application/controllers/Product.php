@@ -31,8 +31,8 @@ class Product extends CI_Controller {
 	{
 		$this->load->view('sellproduct');
 	}
-	//https://codeigniter.com/userguide3/libraries/file_uploading.html file uploading
-	public function sell_post()
+
+ 	public function sell_post()
 	{
 		$config = array(
 			'upload_path' => "./assets/images/products",
@@ -47,20 +47,19 @@ class Product extends CI_Controller {
 		if($this->upload->do_upload()) {
 			$uploadData = $this->upload->data();
 			$data["image"] = $uploadData['file_name'];
+		}
 
-// Other information that needed to be stored
-			$data = array(
-				'name' => $this->input->post('name'),
-				'description' => $this->input->post('description'),
-				'image' => $uploadData['file_name'],
-				'starting_price' => $this->input->post('starting_price'),
-				'bid_price' => $this->input->post('bid_price')
+		$data = array(
+			'name' => $this->input->post('name'),
+			'description' => $this->input->post('description'),
+			'image' => $uploadData['file_name'],
+			'starting_price' => $this->input->post('starting_price'),
+			'bid_price' => $this->input->post('bid_price')
+		);
 
-			);
-			$id = $this->product_model->insert($data);
-			if ($id > 0) {
-				redirect('dashboard');
-			}
+		$id = $this->product_model->insert($data);
+		if ($id > 0) {
+			redirect('dashboard');
 		}
 	}
 
