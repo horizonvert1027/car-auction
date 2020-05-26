@@ -98,9 +98,10 @@
                 url:"<?php echo base_url(); ?>product/search",
                 method:"POST",
                 data:{query:query, limit:limit},
-                success:function(data){
-                    $('#result').html(data);
-                    action = "inactive";
+                success:function(result){
+                    console.log(result);
+                    $('#result').html(result['data']);
+                    action = result['status'];
                 }
             })
         }

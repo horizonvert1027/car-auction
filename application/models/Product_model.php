@@ -13,6 +13,11 @@ class Product_model extends CI_Model
 		return $query;
 	}
 
+	function count() {
+		$count = $this->db->from("product")->count_all_results();;
+		return $count;
+	}
+
 	function insert($data)
 	{
 		$this->db->insert('product', $data);

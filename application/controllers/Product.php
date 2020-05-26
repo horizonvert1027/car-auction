@@ -77,9 +77,11 @@ class Product extends CI_Controller {
 			$limit = $this->input->post('limit');
 		}
 		$data = $this->product_model->getByName($product_name, $limit);
+		$max_data = $this->product_model->count();
 
 		if($data->num_rows() > 0)
 		{
+			$status = $max_data > $limit ? "inactive" : "active";
 			foreach($data->result() as $row)
 			{
 				$output .= '
@@ -107,10 +109,15 @@ class Product extends CI_Controller {
 		else
 		{
 			$output .= '<tr>
-       	<td colspan="5">No Data Found</td>
-      	</tr>';
+				<td colspan="5">No Data Found</td>
+			</tr>';
 		}
-		echo $output;
+
+		header('Content-Type: application/json');
+		echo json_encode(array(
+			'data' => $output,
+			'status' => $status
+		));
 	}
 
 	function buyProduct(){
