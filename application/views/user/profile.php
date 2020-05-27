@@ -88,11 +88,11 @@
 								<div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
 									<?php echo form_open_multipart('user/upload');?>
 									<div class="text-center text-sm-left mb-2 mb-sm-0">
-										<h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo base_url()."" ?>Name</h4>
-										<div class="text-muted"><small><?php echo base_url()."" ?></small>Email</div>
-										<div class="text-muted"><small><?php echo base_url()."" ?></small>My Description</div>
-										<div class="text-muted"><small><?php echo base_url()."" ?></small>phone</div>
-										<div class="text-muted"><small><?php echo base_url()."" ?></small>location</div>
+<!--										<h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">--><?php //echo base_url()."" ?><!--Name</h4>-->
+<!--										<div class="text-muted"><small>--><?php //echo base_url()."" ?><!--</small>Email</div>-->
+<!--										<div class="text-muted"><small>--><?php //echo base_url()."" ?><!--</small>My Description</div>-->
+<!--										<div class="text-muted"><small>--><?php //echo base_url()."" ?><!--</small>phone</div>-->
+<!--										<div class="text-muted"><small>--><?php //echo base_url()."" ?><!--</small>location</div>-->
 										<div class="row">
 											<div class="col">
 												<div class="form-group">
