@@ -1,10 +1,9 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-// The login and sign up system is referenced from https://www.youtube.com/watch?v=KSlrhaKt0f8 the Webslesson
+
 class Register extends CI_Controller
 {
-//Import model and library
+	// Initial function
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,10 +21,6 @@ class Register extends CI_Controller
 	}
 
 	//validation register rules, error message sent when requirements were not satisfied
-	//encrypted_password
-	//Insert data into database
-	// id>0 as condition decide to send mail or not
-	//Email setting was from codeigniter document and youtube tutorial mentioned above
 	function validation()
 	{
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
@@ -51,6 +46,7 @@ class Register extends CI_Controller
     <p>Hi ".$this->input->post('name')."</p>
     <p>Verify you email by clicking this <a href='".base_url()."register/verify_email/".$verification_key."'>link</a>.</p>
     ";
+				// Config sending email
 				$config = array(
 					'protocol'  => 'smtp',
 					'smtp_host' => 'smtp.gmail.com',
@@ -81,7 +77,8 @@ class Register extends CI_Controller
 			$this->index();
 		}
 	}
-	//Email verification by checking whether the key is the same
+
+	// Email verification
 	function verify_email()
 	{
 		if($this->uri->segment(3))

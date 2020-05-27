@@ -8,6 +8,7 @@ class Cart_model extends CI_Model
 		return $carts;
 	}
 
+	// Get cart of current user
 	function getByUser() {
 		$query = $this->db->where("user_id", $this->session->get_userdata()['id'])->where("status", "in_progress")->get('cart');
 		return $query->result_array()[0];

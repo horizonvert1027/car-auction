@@ -7,7 +7,7 @@ class Login_model extends CI_Model
 		$this->db->update('user', $data);
 	}
 
-
+	// Validate login process
 	function can_login($email, $password)
 	{
 		$this->db->where('email', $email);
@@ -31,7 +31,7 @@ class Login_model extends CI_Model
 				}
 				else
 				{
-					return 'First verified your email address';
+					return 'Verified your email address please';
 				}
 			}
 		}

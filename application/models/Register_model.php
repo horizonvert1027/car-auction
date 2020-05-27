@@ -7,6 +7,7 @@ class Register_model extends CI_Model
 		return $this->db->insert_id();
 	}
 
+	// Verify email
 	function verify_email($key)
 	{
 		$this->db->where('verify_key', $key);

@@ -21,7 +21,6 @@ class User_model extends CI_Model
 		$this->db->update('user', $data);
 	}
 
-//In profile email re-verification - pending
 	function verify_email($key)
 	{
 		$this->db->where('verify_key', $key);

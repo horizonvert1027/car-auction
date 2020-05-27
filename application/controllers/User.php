@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
 
+	// Initial function
 	public function __construct()
 	{
 		parent::__construct();
@@ -17,16 +18,18 @@ class User extends CI_Controller {
 		$this->load->helper('cookie');
 	}
 
+	// Profile view
 	function profile()
 	{
 		$user = $this->user_model->get($this->session->userdata('id'));
 		$data = array('user' => $user);
 		$this->load->view('user/profile', $data);
 	}
-//$this->upload->initialize($config); set preferences by calling the initialize function
-//https://codeigniter.com/userguide2/libraries/file_uploading.html
+
+	// Upload profile picture
 	public function upload()
 	{
+		// Config uploaded picture
 		$config = array(
 			'upload_path' => "./assets/images/users",
 			'allowed_types' => "gif|jpg|png|jpeg|pdf",
@@ -37,6 +40,7 @@ class User extends CI_Controller {
 		);
 		$this->upload->initialize($config);
 
+		// Upload process
 		if($this->upload->do_upload()) {
 			$uploadData = $this->upload->data();
 			$data["image"] = $uploadData['file_name'];
@@ -45,6 +49,7 @@ class User extends CI_Controller {
 		}
 	}
 
+	// Update user information
 	public function update()
 	{
 		$data = array(
@@ -54,7 +59,8 @@ class User extends CI_Controller {
 		$this->user_model->update($this->session->userdata('id'), $data);
 		redirect('user/profile');
 	}
-//destroy session
+
+	// destroy session and cookie
 	public function logout()
 	{
 		delete_cookie('email'); /* Delete email cookie */

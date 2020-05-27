@@ -13,6 +13,7 @@ class Product_model extends CI_Model
 		return $query;
 	}
 
+	// Count number of row
 	function count() {
 		$count = $this->db->from("product")->count_all_results();;
 		return $count;
@@ -24,7 +25,7 @@ class Product_model extends CI_Model
 		return $this->db->insert_id();
 	}
 
-	//get and return product rows
+	// Get and return product rows
 	public function getProducts($id = ''){
 		$this->db->select('id,name,image,bid_price,description');
 		$this->db->from('product');
@@ -38,11 +39,5 @@ class Product_model extends CI_Model
 			$result = $query->result_array();
 		}
 		return !empty($result)?$result:false;
-	}
-
-	//insert transaction data
-	public function storeTransaction($data = array()){
-		$insert = $this->db->insert('payment',$data);
-		return $insert?true:false;
 	}
 }

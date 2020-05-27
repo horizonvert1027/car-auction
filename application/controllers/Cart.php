@@ -5,6 +5,7 @@ use Dompdf\Dompdf;
 
 class Cart extends CI_Controller {
 
+	// Initial function
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,6 +23,7 @@ class Cart extends CI_Controller {
 		$this->load->library('paypal_lib');
 	}
 
+	// Add a product to cart, default quantity is 1
 	function add_to_cart() {
 		$product_id = $this->uri->segment(3);
 		$cart_id = $this->session->get_userdata()['cart_id'];
@@ -39,6 +41,7 @@ class Cart extends CI_Controller {
 		$this->load->view('cart', $data);
 	}
 
+	// Update cart to database
 	function update() {
 		if($this->input->post('items'))
 		{
@@ -54,6 +57,7 @@ class Cart extends CI_Controller {
 		}
 	}
 
+	// Auto form from Paypal service
 	function checkout() {
 		$user_id = $this->session->get_userdata()['id'];
 		$cart_id = $this->session->get_userdata()['cart_id'];
@@ -70,6 +74,7 @@ class Cart extends CI_Controller {
 		$this->paypal_lib->add_field('notify_url', $notifyURL);
 		$this->paypal_lib->add_field('custom', $user_id);
 
+		// Add products information
 		foreach ($cart_items as $index => $cart_item) {
 			$this->paypal_lib->add_field('item_number_' . ($index + 1),  $cart_item['product_id']);
 			$this->paypal_lib->add_field('item_name_' . ($index + 1), $cart_item['name']);
@@ -80,6 +85,7 @@ class Cart extends CI_Controller {
 		$this->paypal_lib->paypal_auto_form();
 	}
 
+	// Generate invoice
 	public function invoice()
 	{
 		$user = $this->user_model->get($this->session->get_userdata()['id']);
@@ -108,13 +114,16 @@ class Cart extends CI_Controller {
 		$dompdf = new Dompdf();
 		$dompdf->loadHtml($html_output);
 
+		// setup pdf format
 		$dompdf->setPaper('A4', 'landscape');
 
 		$dompdf->render();
 		$dompdf->stream();
 	}
 
+	// Continue shop after payment
 	public function continue_shop() {
+		// Create new cart
 		$data = array(
 			'user_id'  => $this->session->get_userdata()['id'],
 			'status'  => "in_progress",

@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
+	// Initial function
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,6 +23,7 @@ class Login extends CI_Controller {
 		$this->load->view('login');
 	}
 
+	// Validate login form
 	function validation()
 	{
 		$this->form_validation->set_rules('email', 'Email Address', 'required|trim|valid_email');
@@ -31,6 +33,7 @@ class Login extends CI_Controller {
 			$result = $this->login_model->can_login($this->input->post('email'), $this->input->post('password'));
 			if($result == '')
 			{
+				// Process remember me feature if needed
 				if ($this->input->post("remember_me"))
 				{
 					$this->input->set_cookie('email', $this->input->post('email'), 86500); /* Create cookie for store email */
@@ -42,6 +45,7 @@ class Login extends CI_Controller {
 					delete_cookie('password'); /* Delete password cookie */
 				}
 
+				// Create new cart
 				$data = array(
 					'user_id'  => $this->session->get_userdata()['id'],
 					'status'  => "in_progress",
@@ -63,11 +67,13 @@ class Login extends CI_Controller {
 		}
 	}
 
+	// Reset password view
 	function reset_password()
 	{
 		$this->load->view('reset_password');
 	}
 
+	// Validate new password
 	function reset_password_validation()
 	{
 		$this->form_validation->set_rules('email', 'Email Address', 'required|trim|valid_email');
@@ -76,6 +82,7 @@ class Login extends CI_Controller {
 			$result = $this->login_model->can_reset_password($this->input->post('email'));
 			if($result === '')
 			{
+				// Generate reset token
 				$reset_token = md5(rand());
 				$data = array(
 					'reset_token'  => $reset_token
@@ -87,6 +94,7 @@ class Login extends CI_Controller {
 <p>To reset your password, click this  <a href='" . base_url() . "login/set_password/" . $reset_token . "'>link</a>.</p>
 
 ";
+				// Set up config of sending email
 				$config = array(
 					'protocol' => 'smtp',
 					'smtp_host' => 'smtp.gmail.com',
@@ -124,6 +132,7 @@ class Login extends CI_Controller {
 		}
 	}
 
+	// Set password view
 	function set_password()
 	{
 		if($this->uri->segment(3))
